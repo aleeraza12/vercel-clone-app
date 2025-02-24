@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { GithubModule } from './github/github.module';
-import {MongooseModule} from '@nestjs/mongoose';
+import { GithubModule } from './providers/github/github.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { GitlabAuthSModule } from './providers/gitlab/gitlab-auth.module';
 
 @Module({
-  imports: [AuthModule, GithubModule,
+  imports: [ GithubModule,GitlabAuthSModule,
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/vercel?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.9'), // Change DB name
 
   ],

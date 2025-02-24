@@ -5,17 +5,29 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  @Prop({ required: true, unique: true })
-  githubId: number;
+  @Prop()
+  github_id?: number;
 
   @Prop({ required: true })
   username: string;
 
   @Prop()
-  avatarUrl: string;
+  avatar_url: string;
 
   @Prop()
-  accessToken: string;
+  access_token: string;
+
+  @Prop()
+  gitlab_id?: number;
+
+  @Prop()
+  bitbuck_id?: number;
+
+  @Prop()
+  platform: string;
+
+  @Prop({ type: Object, default: {}})
+  user_detail: Record<string,any>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
