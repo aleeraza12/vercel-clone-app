@@ -6,7 +6,7 @@ export type AllUserRepoDocument = AllUserRepo & Document;
 @Schema()
 export class AllUserRepo{
     @Prop({ required: true, index: true})
-    userId: string
+    user_id: string
 
     @Prop({ required: true})
     platform:  'github' | 'gitlab' | 'bitbucket'; // Service type

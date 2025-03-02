@@ -42,7 +42,7 @@ export class GithubService {
     }
 
     async saveUser(userData: { github_id: number; username: string; avatar_url: string; access_token: string,platform,user_detail  }) {
-        const existingUser = await this.userModel.findOne({ githubId: userData.github_id });
+        const existingUser = await this.userModel.findOne({ github_id: userData.github_id });
         if (existingUser) {
             existingUser.access_token = userData.access_token;
             return existingUser.save();
@@ -69,7 +69,7 @@ export class GithubService {
             };
 
             await this.allUserRepoModel.findOneAndUpdate(
-                { userId: accessToken, platform: 'github' },
+                { user_id: accessToken, platform: 'github' },
                 { $set: repoData },
                 { upsert: true, new: true }
             );

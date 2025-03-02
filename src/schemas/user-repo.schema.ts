@@ -52,6 +52,12 @@ export class UserRepo {
 
   @Prop({ default: false })
   is_deployed: boolean; // Track whether the repo is deployed
+
+  @Prop()
+  is_webhook_enable: boolean; // Track whether the repo is deployed
+
+  @Prop()
+  webhook_url: string;
 }
 
 export const UserRepoSchema = SchemaFactory.createForClass(UserRepo);

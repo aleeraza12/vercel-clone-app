@@ -1,11 +1,12 @@
 import { Controller, Get,Post, Req, Res, Body, Query ,BadRequestException, HttpException, HttpStatus} from '@nestjs/common';
 import { GithubService } from './github.service';
 import { UserRepoService } from '../../services/user-repo.service';
+import { WebhookService } from './auto-pull/webhook.service';
 
 @Controller('auth/github')
 export class GithubController {
     
-    constructor(private readonly githubService: GithubService, private readonly userRepoService: UserRepoService){}
+    constructor(private readonly githubService: GithubService, private readonly userRepoService: UserRepoService, private readonly webhookService:WebhookService){}
     
     //  redirect to github authorize page
     @Get('login')
@@ -92,6 +93,9 @@ export class GithubController {
                 }
 
                 const savedRepo = await this.userRepoService.saveUserRepo(repoData);
+
+                await this.webhookService.registerGitHubWebhook(body.token, body.owner, body.repo);
+                
                 return {message: 'Repo saved successfully!', repo: savedRepo}
             }
         }catch(error){
